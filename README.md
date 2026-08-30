@@ -1,5 +1,10 @@
 # FDE Delivery Control Plane
 
+[![CI](https://github.com/trudynamica/fde-delivery-control-plane/actions/workflows/ci.yml/badge.svg)](https://github.com/trudynamica/fde-delivery-control-plane/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/trudynamica/fde-delivery-control-plane/actions/workflows/codeql.yml/badge.svg)](https://github.com/trudynamica/fde-delivery-control-plane/actions/workflows/codeql.yml)
+[![Release](https://img.shields.io/github/v/release/trudynamica/fde-delivery-control-plane)](https://github.com/trudynamica/fde-delivery-control-plane/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 An auditable production-readiness gate for forward-deployed AI systems. The service turns field discovery, operational risk, model quality, accountable ownership, and rollback planning into an explicit `READY` or `HOLD` decision.
 
 This reference implementation demonstrates how I approach forward-deployed engineering: learn the operating environment with domain experts, encode what production-safe means, and make deployment decisions inspectable instead of subjective.
@@ -76,6 +81,20 @@ The response exposes every evaluated gate and any blockers:
 }
 ```
 
+Change a critical constraint to `"resolved": false` and the same endpoint
+returns an inspectable hold decision:
+
+```json
+{
+  "deploymentId": "finance-reporting-copilot-v1",
+  "decision": "HOLD",
+  "gates": {
+    "criticalConstraintsResolved": false
+  },
+  "blockers": ["criticalConstraintsResolved"]
+}
+```
+
 ## Verify
 
 ```bash
@@ -83,6 +102,14 @@ mvn verify
 ```
 
 The tests cover a release-ready deployment, an unresolved critical constraint, compound quality and delivery failures, and RFC 9457-style validation errors.
+
+## Engineering controls
+
+- typed request, quality-evaluation, constraint, and decision contracts;
+- explicit release thresholds with deterministic blocker reporting;
+- request validation with machine-readable Problem Details responses;
+- graceful shutdown and a production-packaged executable artifact;
+- CodeQL analysis and automated Maven and GitHub Actions updates.
 
 ## Why this is public
 
