@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: fde-delivery-control-plane
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+server:
+  shutdown: graceful

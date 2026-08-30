@@ -1,0 +1,37 @@
+{
+  "deploymentId": "finance-reporting-copilot-v1",
+  "discoveryEvidence": [
+    {
+      "type": "PROCESS",
+      "source": "operator workshop",
+      "finding": "Mapped the monthly close workflow, handoffs, and exception paths"
+    },
+    {
+      "type": "DATA",
+      "source": "lineage review",
+      "finding": "Validated source ownership, freshness, and reconciliation controls"
+    },
+    {
+      "type": "INTEGRATION",
+      "source": "sandbox trace",
+      "finding": "Verified API boundaries and downstream failure behavior"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "AUDIT-01",
+      "risk": "HIGH",
+      "description": "Every generated answer requires traceable evidence",
+      "resolved": true
+    }
+  ],
+  "evaluation": {
+    "retrievalRecall": 0.88,
+    "groundedClaimCoverage": 0.98,
+    "errorRate": 0.005,
+    "p95LatencyMs": 1450
+  },
+  "businessOwner": "finance-operations@example.com",
+  "technicalOwner": "ai-platform@example.com",
+  "rollbackPlan": "Disable the route and restore the prior reporting workflow"
+}
